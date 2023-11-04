@@ -6,6 +6,7 @@
 char DIR_SEPARATOR = Path.DirectorySeparatorChar;   // Permet d'avoir un séparateur portable
 string nomFichier = "bdeb_gtd.xml";
 
+
 if (ConfirmerOperation("Voulez-vous placer le fichier au bon endroit"))
 {
     CopierFichier(nomFichier);

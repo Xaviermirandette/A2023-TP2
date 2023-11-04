@@ -7,7 +7,78 @@
         mc:Ignorable="d"
         Title="BdeB GTD" Height="720" Width="1280"
         WindowStartupLocation="CenterScreen">
+    <Window.Resources>
+        <Style x:Key="listboxstyle" TargetType="ListBox">
+            <Setter Property="BorderBrush" Value="Black" />
+            <Setter Property="BorderThickness" Value="8" />
+        </Style>
+    </Window.Resources>
+    
+    
+    
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="420"></ColumnDefinition>
+            <ColumnDefinition Width="420"></ColumnDefinition>
+            <ColumnDefinition Width="auto"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="auto"></RowDefinition>
+        </Grid.RowDefinitions> 
+        
+        <DockPanel>
+            <Menu HorizontalAlignment="left" VerticalAlignment="Top" Height="auto" Width="1280">
+                <MenuItem Header="Fichier">
+                    <MenuItem Header="Quitter" InputGestureText="Ctrl+Q"/>
+                </MenuItem>
+                
+                <MenuItem Header="Boîte d'entrées">
+                    <MenuItem Header="Ajouter entrée(s)" InputGestureText="Ctrl+A"/>
+                    <MenuItem Header="Traiter" InputGestureText="Ctrl+T"/>
+                    </MenuItem>
+                <MenuItem Header="Aide">
+                    <MenuItem Header="À propos..." Name="MenuItemAPropos" Click="MenuItemAPropos_Click"/>
 
+                        </MenuItem>
+            </Menu>
+            
+        </DockPanel> 
+        
+        <ListBox x:Name="_listeEntrees" Grid.Row="1"  Width="400" Height="481" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,45,0,0">
+            <!-- Add ListBox Items here -->
+            
+            <!-- Add more items as needed -->
+        </ListBox>
+        <ListBox  x:Name="_listeAction" Grid.Row="1" Grid.Column="1"  Width="400" Height="481" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,45,0,0">
+            <!-- Add ListBox Items here -->
+           
+            <!-- Add more items as needed -->
+        </ListBox>
+        <ListBox  x:Name="_listeSuivi" Grid.Row="1" Grid.Column="2"  Width="400" Height="481" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,45,0,0">
+            <!-- Add ListBox Items here -->
+           
+            <!-- Add more items as needed -->
+        </ListBox>
+        
+        <!-- Mes text au dessus de mes listbox -->
+        <TextBlock Text="Boîte d'entrées" FontSize="30" Grid.Row="1" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBlock Text="Prochaines actions" FontSize="30" Grid.Row="1" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <TextBlock Text="Système de suivi" FontSize="30" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
+        <!-- Mon titre de ma page -->
+        <TextBlock Text="Getting Things Done©" FontSize="40" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+
+        <!-- La date -->
+        
+
+        <StackPanel Orientation="Horizontal" Grid.Row="0" Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10">
+            <!-- TextBlock pour afficher la date -->
+            <TextBlock x:Name="dateTextBlock" Grid.Row="0" Grid.Column="2" FontSize="20" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="10">
+            </TextBlock>
+
+            <!-- Bouton avec le signe "+" -->
+            <Button Content="+" Width="30" Height="30"/>
+        </StackPanel>
     </Grid>
 </Window>
