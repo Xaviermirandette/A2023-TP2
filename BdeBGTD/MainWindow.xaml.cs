@@ -28,27 +28,27 @@ namespace BdeBGTD
 
     public partial class MainWindow : Window
     {
-
-        //private CollectionGtd _lesContacts;
-        private string _pathFichier;
-        private string _dossierBase;
+        //Quitter
+        public static RoutedCommand CloseAppCommand = new RoutedCommand();
+        
+        //variables utilisé pour le traitement de fichier
+        private string _pathFichier; 
+        private string _dossierBase; 
         private char DIR_SEPARATOR = '\\';
        
         private GestionnaireGTD _gestionnaire;
 
-        //private TextBlock dateTextBlock; // Champ pour le TextBlock de la date
+       
         public MainWindow()
         {
-            
             _dossierBase = $"{Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments)}{DIR_SEPARATOR}" +
                           $"Fichiers-3GP";
             _pathFichier = _dossierBase + DIR_SEPARATOR + "bdeb_gtd.xml";
-
-            OuvrirFichier();
-
             _gestionnaire = new GestionnaireGTD();
 
+            
             InitializeComponent();
+            CommandBindings.Add(new CommandBinding(CloseAppCommand, CloseApp_Executed, CloseApp_CanExecute));
 
             _listeEntrees.ItemsSource = _gestionnaire.ListeEntrees;
             _gestionnaire.ListeEntrees.Add(new ElementGTD());
@@ -58,9 +58,22 @@ namespace BdeBGTD
 
             _listeSuivi.ItemsSource = _gestionnaire.ListeSuivis;
             _gestionnaire.ListeSuivis.Add(new ElementGTD());
-            
-            dateTextBlock.Text = DateTime.Now.ToString("yyyy-MM-dd"); //si cette ligne bug mettre en commentaire et runner le programme après décommenter la et relancer
 
+            OuvrirFichier();
+            dateTextBlock.Text = DateTime.Now.ToString("yyyy-MM-dd"); 
+
+        }
+        private void CloseApp_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+            CloseApp();
+        }
+        private void CloseApp()
+        {
+            Close();
+        }
+        private void CloseApp_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            e.CanExecute = true;
         }
         private void MenuItemAPropos_Click(object sender, RoutedEventArgs e)
         {
@@ -83,8 +96,7 @@ namespace BdeBGTD
         private void ChargerGtd(string nomFichier)
         {
             if (!File.Exists(nomFichier))
-            {
-                Debug.WriteLine("Le fichier n'existe pas : " + nomFichier);
+            { 
                 return;
             }
 
@@ -97,21 +109,23 @@ namespace BdeBGTD
                 ElementGTD element = new ElementGTD();
                 element.DeXML(gtd); // Remplit l'objet ElementGTD depuis le XML
 
-                Debug.WriteLine("Élément chargé : " + element.Nom); // Ajoutez un message pour le débogage 
+               
 
-                // En fonction du statut de l'élément on place l'ElementGTD dans la bonne liste
+                // En fonction du statut de l'élément on place l'ElementGTD dans la bonne liste où ce dernier corespond
                 switch (element.Statu)
                 {
-                    case ElementGTD.statuts.Entree:
+                    case ElementGTD.statuts.Entree: //dans la liste Entree
                         _gestionnaire.ListeEntrees.Add(element);
                         break;
-                    case ElementGTD.statuts.Action:
+                    case ElementGTD.statuts.Action: //dans la liste Action
                         _gestionnaire.ListeActions.Add(element);
                         break;
-                    case ElementGTD.statuts.Suivi:
+                    case ElementGTD.statuts.Suivi: //dans la liste Suivi
                         _gestionnaire.ListeSuivis.Add(element);
                         break;
-                    default: //si un statuts est différent exemple Archive on ne le traite pas
+
+                    //si un statuts est différent exemple Archive on ne le traite pas
+                    default: 
                         break;
                 }
             }

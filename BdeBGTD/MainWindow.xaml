@@ -5,13 +5,31 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:BdeBGTD"
         mc:Ignorable="d"
-        Title="BdeB GTD" Height="720" Width="1280"
+        Title="BdeB GTD" Height="720" Width="1280" Background="#F0F0F0" ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static local:MainWindow.CloseAppCommand}"
+                        Executed="CloseApp_Executed"
+                        CanExecute="CloseApp_CanExecute" />
+    </Window.CommandBindings>
+    
+    <Window.InputBindings>
+        <KeyBinding Command="local:MainWindow.CloseAppCommand" Gesture="CTRL+Q" />
+    </Window.InputBindings>
+
     <Window.Resources>
-        <Style x:Key="listboxstyle" TargetType="ListBox">
-            <Setter Property="BorderBrush" Value="Black" />
-            <Setter Property="BorderThickness" Value="8" />
+        <Style x:Key="TitleTextBlockStyle" TargetType="TextBlock">
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="Foreground" Value="BlueViolet"/>
+           
         </Style>
+        <Style x:Key="CustomListBoxStyle" TargetType="ListBox">
+            <Setter Property="Background" Value="AliceBlue"/>
+            <Setter Property="BorderThickness" Value="5"/>
+            <Setter Property="BorderBrush" Value="Black"/>
+        </Style>
+
     </Window.Resources>
     
     
@@ -30,7 +48,7 @@
         <DockPanel>
             <Menu HorizontalAlignment="left" VerticalAlignment="Top" Height="auto" Width="1280">
                 <MenuItem Header="Fichier">
-                    <MenuItem Header="Quitter" InputGestureText="Ctrl+Q"/>
+                    <MenuItem Header="Quitter" InputGestureText="Ctrl+Q" Command="{x:Static local:MainWindow.CloseAppCommand}"/>
                 </MenuItem>
                 
                 <MenuItem Header="Boîte d'entrées">
@@ -43,19 +61,19 @@
                         </MenuItem>
             </Menu>
             
-        </DockPanel> 
-        
-        <ListBox x:Name="_listeEntrees" Grid.Row="1"  Width="400" Height="481" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,45,0,0">
+        </DockPanel>
+
+        <ListBox x:Name="_listeEntrees" Grid.Row="1"  Width="400" Height="481" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,45,0,0" Style="{StaticResource CustomListBoxStyle}">
             <!-- Add ListBox Items here -->
             
             <!-- Add more items as needed -->
         </ListBox>
-        <ListBox  x:Name="_listeAction" Grid.Row="1" Grid.Column="1"  Width="400" Height="481" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,45,0,0">
+        <ListBox  x:Name="_listeAction" Grid.Row="1" Grid.Column="1"  Width="400" Height="481" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,45,0,0" Style="{StaticResource CustomListBoxStyle}">
             <!-- Add ListBox Items here -->
            
             <!-- Add more items as needed -->
         </ListBox>
-        <ListBox  x:Name="_listeSuivi" Grid.Row="1" Grid.Column="2"  Width="400" Height="481" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,45,0,0">
+        <ListBox  x:Name="_listeSuivi" Grid.Row="1" Grid.Column="2"  Width="400" Height="481" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,45,0,0" Style="{StaticResource CustomListBoxStyle}">
             <!-- Add ListBox Items here -->
            
             <!-- Add more items as needed -->
@@ -67,7 +85,7 @@
         <TextBlock Text="Système de suivi" FontSize="30" Grid.Row="1" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
         <!-- Mon titre de ma page -->
-        <TextBlock Text="Getting Things Done©" FontSize="40" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" />
+        <TextBlock x:Name="title" Text="Getting Things Done©" FontSize="40" Grid.Row="0" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center" Style="{StaticResource TitleTextBlockStyle}"/>
 
         <!-- La date -->
         
