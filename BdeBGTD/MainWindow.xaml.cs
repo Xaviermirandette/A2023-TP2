@@ -29,8 +29,14 @@ namespace BdeBGTD
     public partial class MainWindow : Window
     {
         //Quitter
-        public static RoutedCommand CloseAppCommand = new RoutedCommand();
-        
+        public static RoutedCommand fermerAppCommand = new RoutedCommand();
+
+        //Ajouter entré
+        public static RoutedCommand AjouterEntreesCommand = new RoutedCommand();
+
+        //Traiter 
+        public static RoutedCommand AfficherTraitementCommand = new RoutedCommand();
+
         //variables utilisé pour le traitement de fichier
         private string _pathFichier; 
         private string _dossierBase; 
@@ -48,7 +54,7 @@ namespace BdeBGTD
 
             
             InitializeComponent();
-            CommandBindings.Add(new CommandBinding(CloseAppCommand, CloseApp_Executed, CloseApp_CanExecute));
+            CommandBindings.Add(new CommandBinding(fermerAppCommand, CloseApp_Executed, CloseApp_CanExecute));
 
             _listeEntrees.ItemsSource = _gestionnaire.ListeEntrees;
             _gestionnaire.ListeEntrees.Add(new ElementGTD());
@@ -63,14 +69,38 @@ namespace BdeBGTD
             dateTextBlock.Text = DateTime.Now.ToString("yyyy-MM-dd"); 
 
         }
-        private void CloseApp_Executed(object sender, ExecutedRoutedEventArgs e)
+
+        //Traiter
+        private void AfficherTraitement_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            CloseApp();
+            Traiter fenetreTraitement = new Traiter();
+            fenetreTraitement.ShowDialog(); // Pour afficher la fenêtre en tant que boîte de dialogue modale
         }
-        private void CloseApp()
+        private void AfficherTraitement_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+            // Vous pouvez mettre ici la logique pour autoriser ou non l'exécution de la commande.
+            e.CanExecute = true; // Par exemple, autorisez toujours l'exécution ici.
+        }
+        //AjouterEntrees
+        private void AjouterEntrees_Executed(object sender, ExecutedRoutedEventArgs e)
+        {
+           
+            AjoutéEntrées deuxiemePage = new AjoutéEntrées();
+            deuxiemePage.Show();
+        }
+
+        private void AjouterEntrees_CanExecute(object sender, CanExecuteRoutedEventArgs e)
+        {
+           
+            e.CanExecute = true; 
+        }
+
+        //Quitter
+        private void CloseApp_Executed(object sender, ExecutedRoutedEventArgs e)
         {
             Close();
         }
+       
         private void CloseApp_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
             e.CanExecute = true;
@@ -82,6 +112,7 @@ namespace BdeBGTD
         }
         private void OuvrirFichier()
         {
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "xml files (*.xml)|*.xml";
             openFileDialog.InitialDirectory = _dossierBase;
@@ -109,23 +140,25 @@ namespace BdeBGTD
                 ElementGTD element = new ElementGTD();
                 element.DeXML(gtd); // Remplit l'objet ElementGTD depuis le XML
 
-               
-
                 // En fonction du statut de l'élément on place l'ElementGTD dans la bonne liste où ce dernier corespond
                 switch (element.Statu)
                 {
                     case ElementGTD.statuts.Entree: //dans la liste Entree
+
                         _gestionnaire.ListeEntrees.Add(element);
                         break;
                     case ElementGTD.statuts.Action: //dans la liste Action
+
                         _gestionnaire.ListeActions.Add(element);
                         break;
                     case ElementGTD.statuts.Suivi: //dans la liste Suivi
+
                         _gestionnaire.ListeSuivis.Add(element);
                         break;
 
                     //si un statuts est différent exemple Archive on ne le traite pas
                     default: 
+
                         break;
                 }
             }

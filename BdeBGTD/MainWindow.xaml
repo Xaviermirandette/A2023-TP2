@@ -9,13 +9,21 @@
         WindowStartupLocation="CenterScreen">
 
     <Window.CommandBindings>
-        <CommandBinding Command="{x:Static local:MainWindow.CloseAppCommand}"
+        <CommandBinding Command="{x:Static local:MainWindow.AjouterEntreesCommand}" 
+                        Executed="AjouterEntrees_Executed" 
+                        CanExecute="AjouterEntrees_CanExecute" />
+        <CommandBinding Command="{x:Static local:MainWindow.fermerAppCommand}"
                         Executed="CloseApp_Executed"
                         CanExecute="CloseApp_CanExecute" />
+        <CommandBinding Command="{x:Static local:MainWindow.AfficherTraitementCommand}"
+                        Executed="AfficherTraitement_Executed"
+                        CanExecute="AfficherTraitement_CanExecute" />
     </Window.CommandBindings>
     
     <Window.InputBindings>
-        <KeyBinding Command="local:MainWindow.CloseAppCommand" Gesture="CTRL+Q" />
+        <KeyBinding Command="local:MainWindow.AjouterEntreesCommand" Gesture="CTRL+A" />
+        <KeyBinding Command="local:MainWindow.fermerAppCommand" Gesture="CTRL+Q" />
+        <KeyBinding Command="local:MainWindow.AfficherTraitementCommand" Gesture="CTRL+T" />
     </Window.InputBindings>
 
     <Window.Resources>
@@ -48,12 +56,12 @@
         <DockPanel>
             <Menu HorizontalAlignment="left" VerticalAlignment="Top" Height="auto" Width="1280">
                 <MenuItem Header="Fichier">
-                    <MenuItem Header="Quitter" InputGestureText="Ctrl+Q" Command="{x:Static local:MainWindow.CloseAppCommand}"/>
+                    <MenuItem Header="Quitter" InputGestureText="Ctrl+Q" Command="{x:Static local:MainWindow.fermerAppCommand}"/>
                 </MenuItem>
                 
                 <MenuItem Header="Boîte d'entrées">
-                    <MenuItem Header="Ajouter entrée(s)" InputGestureText="Ctrl+A"/>
-                    <MenuItem Header="Traiter" InputGestureText="Ctrl+T"/>
+                    <MenuItem Header="Ajouter entrée(s)" InputGestureText="Ctrl+A" Command="{x:Static local:MainWindow.AjouterEntreesCommand}"/>
+                    <MenuItem Header="Traiter" InputGestureText="Ctrl+T" Command="{x:Static local:MainWindow.AfficherTraitementCommand}"/>
                     </MenuItem>
                 <MenuItem Header="Aide">
                     <MenuItem Header="À propos..." Name="MenuItemAPropos" Click="MenuItemAPropos_Click"/>
