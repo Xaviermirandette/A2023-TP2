@@ -59,16 +59,15 @@ namespace GTD
                 DateDeRappel = null;
             }
 
-            XmlElement descriptionElement = elem["description"]; 
+            XmlElement descriptionElement = elem["description"];
+            Description = elem.InnerText.Trim();
 
             //Gère l'exception si la description est null
-            if (descriptionElement != null)
+            if (Description == null)
             {
-                Description = descriptionElement.InnerText.Trim();
-            }
-            else
-            {
-                Description = string.Empty; // ou tout autre valeur par défaut
+             
+                //Si la Description est null elle contient une chaine de charactère vide
+                Description = ""; 
             }
         }
         public XmlElement VersXML(XmlDocument doc)

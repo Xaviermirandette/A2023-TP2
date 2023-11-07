@@ -6,20 +6,44 @@
         xmlns:local="clr-namespace:BdeBGTD"
         mc:Ignorable="d"
         Title="traiter" Height="350" Width="640" ResizeMode="NoResize">
+
+    <Window.CommandBindings>
+
+        <CommandBinding Command="{x:Static local:Traiter.traiterFermer}"
+                 Executed="TraiterFermerExecuted"
+                 CanExecute="TraiterFermerCanExecute" />
+        <CommandBinding Command="{x:Static local:Traiter.PoubelleCommand}"
+                        Executed="PoubelleCommandExecuted" 
+                        CanExecute="PoubelleCommandCanExecute"/>
+        <CommandBinding Command="{x:Static local:Traiter.ActionRapide}"
+                        Executed="ActionRapideCommandExecuted"
+                        CanExecute="ActionRapideCommandCanExecute"/>
+        <CommandBinding Command="{x:Static local:Traiter.planifierAction}"
+                        Executed="PlanifierActionCommandExecuted"
+                        CanExecute="PlanifierActionCommandCanExecute"/>
+        <CommandBinding Command="{x:Static local:Traiter.incuber}"
+                        Executed="IncuberActionCommandExecuted"
+                        CanExecute="IncuberActionCommandCanExecute"/>
+
+
+
+    </Window.CommandBindings>
+
     <Grid>
         
             <TextBlock Text="Tri de la boîte d'entrées" FontSize="30" FontWeight="Bold" Margin="10,0,0,0"></TextBlock>
         <DockPanel Margin="0,0,0,190">
-            <ListBox x:Name="traiterNom" Width="480" Height="30" FontSize="28" Margin="10,0,0,0">   </ListBox>
-            <Button Content="Retour" FontSize="18" Width="100" Height="30" Margin="10,0,0,0" Visibility="Visible"></Button>
+            <ListBox x:Name="traiterNom" Width="480" Height="30" FontSize="20" Margin="10,0,0,0"></ListBox>
+            <Button Content="Retour" FontSize="18" Width="100" Height="30" Margin="10,0,0,0" Visibility="Visible" Command="{x:Static local:Traiter.traiterFermer}"></Button>
         </DockPanel>
         <StackPanel Margin="0,100,0,0">
-            <ListBox Width="580" Height="160"></ListBox>
+            <ListBox x:Name="traiterDescription" FontSize="20" Width="580" Height="160"></ListBox>
             <DockPanel Margin="0,15,0,0" HorizontalAlignment="Center">
-                <Button Content="Incuber" FontSize="18" Width="130" Height="30" Margin="10,0,10,0"></Button>
-                <Button Content="Action rapide" FontSize="18" Width="130" Height="30" Margin="10,0,10,0"></Button>
-                <Button Content="Planifier action" FontSize="18" Width="130" Height="30" Margin="10,0,10,0"></Button>
-                <Button Content="Poubelle" FontSize="18" Width="130" Height="30" Margin="10,0,10,0"></Button>
+                <Button Content="Incuber" FontSize="18" Width="130" Height="30" Margin="10,0,10,0" Command="{x:Static local:Traiter.incuber}"></Button>
+                <Button Content="Action rapide" FontSize="18" Width="130" Height="30" Margin="10,0,10,0" Command="{x:Static local:Traiter.ActionRapide}"></Button>
+                <Button Content="Planifier action" FontSize="18" Width="130" Height="30" Margin="10,0,10,0" Command="{x:Static local:Traiter.planifierAction}"></Button>
+                <Button Content="Poubelle" FontSize="18" Width="130" Height="30" Margin="10,0,10,0" Command="{x:Static local:Traiter.PoubelleCommand}"></Button> 
+                
             </DockPanel>
         </StackPanel>
               

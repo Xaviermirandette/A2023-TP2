@@ -73,19 +73,34 @@ namespace BdeBGTD
         //Traiter
         private void AfficherTraitement_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-            Traiter fenetreTraitement = new Traiter();
-            fenetreTraitement.ShowDialog(); // Pour afficher la fenêtre en tant que boîte de dialogue modale
+            //si aucun élément n'est détecter dans listeEntrees un message d'erreur apparait
+            if (_gestionnaire.ListeEntrees.Count < 2)
+            {
+                MessageBox.Show("Vous ne pouvez pas ouvrir la fenêtre Traiter avec moins de 2 éléments dans ListeEntrees.", "Erreur d'ouverture", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            else
+            { 
+                //sinon traiter s'ouvre normalement
+                Traiter traiteWindow = new Traiter(_gestionnaire);
+                traiteWindow.Show();
+            } 
         }
         private void AfficherTraitement_CanExecute(object sender, CanExecuteRoutedEventArgs e)
         {
-            // Vous pouvez mettre ici la logique pour autoriser ou non l'exécution de la commande.
-            e.CanExecute = true; // Par exemple, autorisez toujours l'exécution ici.
+            if(_gestionnaire.ListeEntrees.Count <2)
+            {
+                e.CanExecute = false;
+            }
+            else{ 
+
+            e.CanExecute = true;
+            }
         }
         //AjouterEntrees
         private void AjouterEntrees_Executed(object sender, ExecutedRoutedEventArgs e)
         {
-           
-            AjoutéEntrées deuxiemePage = new AjoutéEntrées();
+
+            AjoutéEntrées deuxiemePage = new AjoutéEntrées(_gestionnaire);
             deuxiemePage.Show();
         }
 
@@ -110,6 +125,8 @@ namespace BdeBGTD
             // Afficher la boîte de dialogue "À propos" avec votre message
             MessageBox.Show("BdeB GTD\nVersion 1.0\nAuteur: Xavier Mirandette", "À propos" );
         }
+
+        //Ouvrir le Fichier
         private void OuvrirFichier()
         {
 
@@ -124,6 +141,10 @@ namespace BdeBGTD
                 ChargerGtd(_pathFichier);
             }
         }
+        /*
+         * La méthode ChargerGtd permet lors de la lecture du fichier xml d'insérer les éléments lu dans les liste approprié en fonction
+         * de leur statut. Deplus il génère un nouvel objet Élément en fonction toujours des éléments lu dans le fichier.
+         */
         private void ChargerGtd(string nomFichier)
         {
             if (!File.Exists(nomFichier))

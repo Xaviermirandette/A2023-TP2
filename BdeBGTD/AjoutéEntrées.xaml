@@ -11,8 +11,11 @@
 
         <CommandBinding Command="{x:Static local:AjoutéEntrées.fermerActionEntrées}"
                      Executed="fermerActionEntrées_Executed"
-                     CanExecute="fermerActionEntrées_CanExecute" /> 
-        
+                     CanExecute="fermerActionEntrées_CanExecute" />
+        <CommandBinding Command="{x:Static local:AjoutéEntrées.confirmerActionEntrées}"
+                 Executed="confirmerActionEntrées_Executed"
+                 CanExecute="confirmerActionEntrées_CanExecute" />
+
 
     </Window.CommandBindings> 
     
@@ -32,7 +35,7 @@
             </DockPanel>
         </StackPanel>
         <DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Center">
-            <Button Content="Confirmer" Width="150" Height="20" Margin="30,0,60,90"/>
+            <Button Content="Confirmer" Width="150" Height="20" Margin="30,0,60,90" Command="{x:Static local:AjoutéEntrées.confirmerActionEntrées}"/>
             <Button Content="Annuler" Width="150" Height="20" Margin="30,0,60,90" Command="{x:Static local:AjoutéEntrées.fermerActionEntrées}"/>
         </DockPanel>
     </Grid>

@@ -20,7 +20,8 @@
                         CanExecute="AfficherTraitement_CanExecute" />
     </Window.CommandBindings>
     
-    <Window.InputBindings>
+    <Window.InputBindings> 
+        
         <KeyBinding Command="local:MainWindow.AjouterEntreesCommand" Gesture="CTRL+A" />
         <KeyBinding Command="local:MainWindow.fermerAppCommand" Gesture="CTRL+Q" />
         <KeyBinding Command="local:MainWindow.AfficherTraitementCommand" Gesture="CTRL+T" />
@@ -55,15 +56,16 @@
         
         <DockPanel>
             <Menu HorizontalAlignment="left" VerticalAlignment="Top" Height="auto" Width="1280">
-                <MenuItem Header="Fichier">
+                <MenuItem Header="_Fichier">
+                    
                     <MenuItem Header="Quitter" InputGestureText="Ctrl+Q" Command="{x:Static local:MainWindow.fermerAppCommand}"/>
                 </MenuItem>
                 
-                <MenuItem Header="Boîte d'entrées">
+                <MenuItem Header="_Boîte d'entrées">
                     <MenuItem Header="Ajouter entrée(s)" InputGestureText="Ctrl+A" Command="{x:Static local:MainWindow.AjouterEntreesCommand}"/>
                     <MenuItem Header="Traiter" InputGestureText="Ctrl+T" Command="{x:Static local:MainWindow.AfficherTraitementCommand}"/>
                     </MenuItem>
-                <MenuItem Header="Aide">
+                <MenuItem Header="_Aide">
                     <MenuItem Header="À propos..." Name="MenuItemAPropos" Click="MenuItemAPropos_Click"/>
 
                         </MenuItem>
