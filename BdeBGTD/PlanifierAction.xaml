@@ -6,11 +6,25 @@
         xmlns:local="clr-namespace:BdeBGTD"
         mc:Ignorable="d"
         Title="PlanifierAction" Height="300" Width="300">
+
+    <Window.CommandBindings>
+       
+            <CommandBinding Command="{x:Static local:PlanifierAction.AnnulerCommand}"
+              Executed="AnnulerCommandExecuted"
+              CanExecute="AnnulerCommandCanExecute"/> 
+        
+          
+
+    </Window.CommandBindings>
+    
+    
     <Grid>
         <StackPanel>
             <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top" Text="Planifier une action" Margin="0,20,0,0" FontSize="20" FontWeight="Bold"></TextBlock>
-            <Calendar Margin="0,10,0,0"></Calendar>
-            <Button Content="Annuler" Width="100" Height="20" Margin="0,10,0,0"></Button>
+            <Calendar Margin="0,10,0,0" PreviewMouseLeftButtonDown="CalendrierInteraction">
+               
+            </Calendar>
+            <Button Content="Annuler" Width="100" Height="20" Margin="0,10,0,0" Command="{x:Static local:PlanifierAction.AnnulerCommand}"></Button>
         </StackPanel>
     </Grid>
 </Window>

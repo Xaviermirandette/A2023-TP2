@@ -71,8 +71,9 @@ namespace BdeBGTD
         //Incuber
         private void IncuberActionCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            Incuber incuberWindow = new Incuber();
-            incuberWindow.ShowDialog(); //affiche Incuber
+            Incuber incuberWindow = new Incuber(_gestionnaire);
+            incuberWindow.ShowDialog(); //affiche Incuber 
+            Close();
         }
 
         private void IncuberActionCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -83,8 +84,9 @@ namespace BdeBGTD
         //Planifier Action
         private void PlanifierActionCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
-            PlanifierAction planifierActionWindow = new PlanifierAction();
-            planifierActionWindow.ShowDialog(); //afiche PlanAction
+            PlanifierAction planifierActionWindow = new PlanifierAction(_gestionnaire);
+            planifierActionWindow.ShowDialog(); //afiche PlanAction 
+            Close(); //on ferme la page lorsque l'utilisateur a fini son interaction avec planifierAction
         }
 
         private void PlanifierActionCommandCanExecute(object sender, CanExecuteRoutedEventArgs e)
@@ -113,7 +115,7 @@ namespace BdeBGTD
 
                 //statut Archive
                 element.Statu = ElementGTD.statuts.Archive;
-                _gestionnaire.ListeEntrees.RemoveAt(_gestionnaire.ListeEntrees.Count-1);
+                _gestionnaire.ListeEntrees.RemoveAt(_gestionnaire.ListeEntrees.Count-1); //la dernière case est vide alors on l'enlève
                 Close(); //on ferme la page pour rafraichir la page
               
             }
