@@ -20,15 +20,21 @@ namespace BdeBGTD
     /// </summary>
     public partial class Incuber : Window
     {
-
+        //Annuler
         public static RoutedCommand AnnulerCommand = new RoutedCommand(); 
 
+        //Gestionnaire
         public GestionnaireGTD _gestionnaire;
+
+        /**
+         * est la fenêtre Incuber cette dernière s'ouvre à partir de la fenêtre Traiter lorsque l'utilisateur clique sur le bouton Incuber. 
+         * Cette fenêtre offre la possibilité de changer la date de rappel d'un élément dans la listeEntré et de le déplacer dans listeSuivi
+         */
         public Incuber(GestionnaireGTD gestionnaire) 
         {
             _gestionnaire = gestionnaire;
             InitializeComponent();
-            AffichageCentrée();
+            AffichageCentrée(); //affiche la fenêtre centré
             CommandBindings.Add(new CommandBinding(AnnulerCommand, AnnulerCommandExecuted, AnnulerCommandCanExecute));
         }
 
@@ -58,12 +64,14 @@ namespace BdeBGTD
                         //statut Archive
 
                         _gestionnaire.ListeEntrees.RemoveAt(_gestionnaire.ListeEntrees.Count - 1); //la dernière case est vide alors on l'enlève
-                        this.Close();
+                        Close();
 
                     }
                 }
             }
         }
+
+        //Annuler
         private void AnnulerCommandExecuted(object sender, ExecutedRoutedEventArgs e)
         {
             // Ferme la fenêtre Incuber
@@ -75,6 +83,8 @@ namespace BdeBGTD
             
             e.CanExecute = true; 
         }
+
+        //Permet d'afficher la fenêtre au centre
         private void AffichageCentrée()
         {
 

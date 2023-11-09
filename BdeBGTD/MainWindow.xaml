@@ -18,6 +18,9 @@
         <CommandBinding Command="{x:Static local:MainWindow.AfficherTraitementCommand}"
                         Executed="AfficherTraitement_Executed"
                         CanExecute="AfficherTraitement_CanExecute" />
+        <CommandBinding Command="{x:Static local:MainWindow.AugmenterDateCommand}"
+                        Executed="AugmenterDate_Executed"
+                        CanExecute="AugmenterDate_CanExecute"/>
     </Window.CommandBindings>
     
     <Window.InputBindings> 
@@ -106,7 +109,7 @@
             </TextBlock>
 
             <!-- Bouton avec le signe "+" -->
-            <Button Content="+" Width="30" Height="30"/>
+            <Button Content="+" Width="30" Height="30" Command="{x:Static local:MainWindow.AugmenterDateCommand}"/>
         </StackPanel>
     </Grid>
 </Window>

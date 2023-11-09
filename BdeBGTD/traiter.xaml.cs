@@ -19,6 +19,9 @@ namespace BdeBGTD
     /// <summary>
     /// Logique d'interaction pour traiter.xaml
     /// </summary>
+    
+
+
     public partial class Traiter : Window
     { 
 
@@ -37,17 +40,24 @@ namespace BdeBGTD
         //Incuber
         public static RoutedCommand incuber = new RoutedCommand();
 
-        private GestionnaireGTD _gestionnaire;
+        //Gestionnaire 
+        private GestionnaireGTD _gestionnaire; 
+
+        /**
+         * Traiter est une fenêtre qui offre plusieurs options telle que poubelle, Action Rapide, planifier Action et Incuber
+         * Traiter est ouvrable à partir de la MainWindow. 
+         */
         public Traiter(GestionnaireGTD gestionnaire)
         {
             _gestionnaire = gestionnaire;
 
             InitializeComponent();
-            if (_gestionnaire.ListeEntrees.Count>1 ) { 
-            AffichageCentrée();
 
-            AffichageNomDesc();
-            }
+              if (_gestionnaire.ListeEntrees.Count>1 ) { 
+            AffichageCentrée(); //Affiche la fenêtre au centre de l'écran
+
+            AffichageNomDesc(); //Affiche le nom et la description aux endroits stipulé
+              }
 
             CommandBindings.Add(new CommandBinding(traiterFermer, TraiterFermerExecuted, TraiterFermerCanExecute));
 
@@ -61,7 +71,7 @@ namespace BdeBGTD
 
 
         }
-
+        //Affiche le nom et la description dans la fenêtre traité du premier Element de la listeEntrees
         private void AffichageNomDesc()
         {
             traiterNom.Items.Add(_gestionnaire.ListeEntrees[1].Nom);
@@ -135,14 +145,15 @@ namespace BdeBGTD
             if (_gestionnaire.ListeEntrees.Count > 1)
             {
                 int indexASupprimer = 1; // Indice de l'élément à supprimer
-                _gestionnaire.ListeEntrees.RemoveAt(indexASupprimer); // Supprime l'élément spécifié
+               
 
-                // Décale les indices des éléments restants
+                // Décale les indices des éléments restants et écrase les données du premier élément par copie d'objet
                 for (int i = indexASupprimer; i < (_gestionnaire.ListeEntrees.Count) -1; i++)
                 {
                     // Mettre à jour l'élément suivant avec l'élément précédent
                     _gestionnaire.ListeEntrees[i] = _gestionnaire.ListeEntrees[i + 1];
                 }
+               _gestionnaire.ListeEntrees.RemoveAt(_gestionnaire.ListeEntrees.Count - 1); //on suprime la copie superflux du dernier Element
                 Close(); //on ferme la fenêtre pour raffraichir la page
                 
             }

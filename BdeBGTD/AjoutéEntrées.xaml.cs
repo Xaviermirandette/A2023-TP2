@@ -22,7 +22,9 @@ namespace BdeBGTD
     /// </summary> 
     /// 
 
-   
+   /**
+    * est la fenêtre AjoutéEntrées cette dernière s'ouvre à partir du MainWindow et offre la possibilité d'ajouté un élément à la listeEntré
+    */
     public partial class AjoutéEntrées : Window
     {
         //Anuler

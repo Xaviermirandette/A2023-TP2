@@ -1,0 +1,33 @@
+﻿<Window x:Class="BdeBGTD.ListeAction"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:BdeBGTD"
+        mc:Ignorable="d"
+        Title="ListeAction" Height="360" Width="360">
+
+    <Window.CommandBindings>
+        <CommandBinding Command="{x:Static local:ListeAction.Annuler}"
+                        Executed="Annuler_Executed"
+                        CanExecute="Annuler_CanExecute"/>
+        <CommandBinding Command="{x:Static local:ListeAction.TerminerAction}"
+                        Executed="TerminerAction_Executed"
+                        CanExecute="TerminerAction_CanExecute"/>
+
+
+    </Window.CommandBindings>
+    
+    <Grid>
+    
+        <StackPanel Margin="0,0,0,0" VerticalAlignment="Top" HorizontalAlignment="Center">
+            <TextBox x:Name="saisieNom" Width="350" Height="20" FontWeight="Bold" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,10,0,0"/>
+            <TextBox x:Name="saisieDescription" Width="350" Height="200" Margin="0,5,0,95"/>
+           
+        </StackPanel>
+        <DockPanel VerticalAlignment="Bottom" HorizontalAlignment="Center">
+            <Button Content="Terminer Action" Width="150" Height="20" Margin="0,0,20,60" Command="{x:Static local:ListeAction.TerminerAction}"/>
+            <Button Content="Poursuivre Action" Width="150" Height="20" Margin="0,0,20,60" Command="{x:Static local:ListeAction.Annuler}"/>
+        </DockPanel>
+    </Grid>
+</Window>

@@ -3,7 +3,11 @@ using System.Globalization;
 using System.Xml;
 
 namespace GTD
-{
+{ 
+    /**
+     * la class ElementGTD est une classe d'objet qui détient un Nom, une Description (optionnel), Une date de rappel (Optionnel) et un statu
+     * qui est soit une Entree, une action, un suivi ou Archive. les Elements sont récolté au moment de la lecture du fichier
+     */
     public class ElementGTD :IConversionXML
     {
         public enum statuts
@@ -20,10 +24,7 @@ namespace GTD
         public statuts Statu { get; set; }
         
 
-        //public ElementGTD(XmlElement elementGtd)
-        //{
-        //    DeXML(elementGtd);
-        //}
+       
 
         public ElementGTD()
         {
@@ -35,7 +36,8 @@ namespace GTD
         public void DeXML(XmlElement elem)
         {
             Nom = elem.GetAttribute("nom");
-            // Convertir la chaîne en enum statuts
+
+            // Converti la chaîne en enum statuts
             string statutStr = elem.GetAttribute("statut");
             if (Enum.TryParse(statutStr, out statuts statut))
             {
@@ -72,17 +74,20 @@ namespace GTD
         }
         public XmlElement VersXML(XmlDocument doc)
         {
-            XmlElement element = doc.CreateElement("gtd"); 
-           
-            
+            XmlElement element = doc.CreateElement("element_gtd");  
+
             element.SetAttribute("nom", Nom);
             element.SetAttribute("statut", Statu.ToString());
+
             if (DateDeRappel.HasValue)
             {
                 element.SetAttribute("dateRappel", DateDeRappel.Value.ToString("yyyy-MM-dd"));
             }
-            element.InnerText = Description;
-            doc.AppendChild(element);
+
+            // Crée un élément pour la description et l'ajoute comme nœud enfant
+            XmlElement descriptionElement = doc.CreateElement("description");
+            descriptionElement.InnerText = Description;
+            element.AppendChild(descriptionElement);
 
             return element;
         }
